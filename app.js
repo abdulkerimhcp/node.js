@@ -4,15 +4,25 @@ const app = express()
 const hostName = '127.58.58.58'
 const port = 5858
 
+app.use(express.static('public'))
+
+app.use('/test',(req,res,next) => {
+    console.log('ben middleware')
+    next()
+})
+
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'))
 })
+
 app.get('/about', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'about.html'))
 })
+
 app.get('/contact', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'contact.html'))
 })
+
 app.get('/users/:userID/movies/:moviesID', (req, res) => {
     res.send(`Kullanıcı adı : ${req.params.userID}, film adı : ${req.params.moviesID}`)
 })
